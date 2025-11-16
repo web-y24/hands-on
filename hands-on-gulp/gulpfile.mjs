@@ -10,6 +10,13 @@ import posthtml from "gulp-posthtml";
 import include from "posthtml-include";
 import htmlmin from "gulp-htmlmin";
 
+import imagemin from "imagemin";
+import imageminMozjpeg from "imagemin-mozjpeg";
+import imageminOptipng from "imagemin-optipng";
+import imageminPngquant from "imagemin-pngquant";
+import imageminSvgo from "imagemin-svgo";
+import webp from "gulp-webp";
+
 import newer from "gulp-newer";
 
 import path from "path";
@@ -68,6 +75,46 @@ export function scriptsProd() {
 export function imagesCopy() {
   return src("src/images/**/*.{jpg,jpeg,png,svg}",{encoding: false})
     .pipe(newer("dist/images"))
+    .pipe(dest("dist/images"));
+}
+
+export async function imagesOptimize() {
+  await imagemin(["src/images/*.{jpg,jpeg,png,svg}"], {
+    destination: "dist/images",
+    plugins: [
+      imageminMozjpeg({ quality: 75, progressive: true }),
+      imageminOptipng({
+        optimizationLevel: 7,
+        bitDepthReduction: true,
+        colorTypeReduction: true,
+        paletteReduction: true,
+      }),
+      imageminPngquant({
+        quality: [0.6, 0.8],
+        speed: 1,
+        strip: true,
+        dithering: 0.5,
+      }),
+      imageminSvgo({
+        plugins: [
+          {
+            name: "preset-default",
+            params: {
+              overrides: {
+                removeViewBox: false,
+              },
+            },
+          },
+        ],
+      }),
+    ],
+  });
+}
+
+export function webpImages() {
+  return src("src/images/**/*.{jpg,jpeg,png}", { encoding: false })
+    .pipe(newer("dist/images"))
+    .pipe(webp({ quality: 75 }))
     .pipe(dest("dist/images"));
 }
 
