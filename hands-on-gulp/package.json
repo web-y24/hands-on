@@ -1,0 +1,46 @@
+{
+  "name": "hands-on-gulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx gulp",
+    "build:dev": "npx gulp build",
+    "build:prod": "NODE_ENV=production npx gulp build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "del": "^8.0.1",
+    "gulp": "^5.0.1",
+    "gulp-autoprefixer": "^10.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-newer": "^1.4.0",
+    "gulp-posthtml": "^3.0.5",
+    "gulp-sass": "^6.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-terser": "^2.1.0",
+    "gulp-webp": "^5.1.0",
+    "imagemin": "^9.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "posthtml-include": "^2.0.1",
+    "sass": "^1.94.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ios >=16",
+    "not op_mini all",
+    "not op_mob > 0",
+    "not kaios > 0",
+    "not and_qq > 0",
+    "not and_uc > 0",
+    "not dead"
+  ]
+}
