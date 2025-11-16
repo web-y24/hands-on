@@ -6,8 +6,29 @@ import sourcemaps from "gulp-sourcemaps";
 import autoprefixer from "gulp-autoprefixer";
 import cleanCSS from "gulp-clean-css";
 
+import posthtml from "gulp-posthtml";
+import include from "posthtml-include";
+import htmlmin from "gulp-htmlmin";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const isProd = process.env.NODE_ENV === "production";
 const isDev = !isProd;
+
+export function htmlDev() {
+  return src(["src/html/**/*.html", "!src/html/components/**"])
+    .pipe(posthtml([ include({ root: path.join(__dirname, "src/html") }) ]))
+    .pipe(dest("dist/"));
+}
+
+export function htmlProd() {
+  return src(["src/html/**/*.html", "!src/html/components/**"])
+    .pipe(posthtml([ include({ root: path.join(__dirname, "src/html") }) ]))
+    .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
+    .pipe(dest("dist/"));
+}
 
 const sass = gulpSass(dartSass);
 
@@ -28,6 +49,7 @@ export function stylesProd() {
     .pipe(dest("dist/css"));
 }
 
+export const html = isProd ? htmlProd : htmlDev;
 export const styles = isProd ? stylesProd : stylesDev;
 
 export function noop(done){ done(); }
