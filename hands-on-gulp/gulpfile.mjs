@@ -14,6 +14,8 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+import terser from "gulp-terser";
+
 const isProd = process.env.NODE_ENV === "production";
 const isDev = !isProd;
 
@@ -49,8 +51,20 @@ export function stylesProd() {
     .pipe(dest("dist/css"));
 }
 
+export function scriptsDev() {
+  return src("src/scripts/**/*.js")
+    .pipe(dest("dist/js"));
+}
+
+export function scriptsProd() {
+  return src("src/scripts/**/*.js")
+    .pipe(terser().on("error",(err)=>{ console.error("terser:", err.message); }))
+    .pipe(dest("dist/js"));
+}
+
 export const html = isProd ? htmlProd : htmlDev;
 export const styles = isProd ? stylesProd : stylesDev;
+export const scripts = isProd ? scriptsProd : scriptsDev;
 
 export function noop(done){ done(); }
 
