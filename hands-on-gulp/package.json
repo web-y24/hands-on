@@ -12,7 +12,20 @@
   "type": "module",
   "devDependencies": {
     "gulp": "^5.0.1",
+    "gulp-autoprefixer": "^10.0.0",
+    "gulp-clean-css": "^4.3.0",
     "gulp-sass": "^6.0.1",
+    "gulp-sourcemaps": "^3.0.0",
     "sass": "^1.94.0"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ios >=16",
+    "not op_mini all",
+    "not op_mob > 0",
+    "not kaios > 0",
+    "not and_qq > 0",
+    "not and_uc > 0",
+    "not dead"
+  ]
 }
