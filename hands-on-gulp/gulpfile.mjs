@@ -1,4 +1,4 @@
-import { src, dest, series, watch } from "gulp";
+import { src, dest, series, watch, parallel } from "gulp";
 import { deleteAsync } from "del";
 
 import gulpSass from "gulp-sass";
@@ -150,4 +150,5 @@ export function serve() {
   watch("src/images/**/*", series(imagesOptimize, webpImages, reload));
 }
 
-export default series(noop);
+export const build = series(clean, parallel(html, styles, scripts, imagesOptimize, webpImages));
+export default series(build, serve);

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx gulp",
+    "build:dev": "npx gulp build",
+    "build:prod": "NODE_ENV=production npx gulp build"
   },
   "keywords": [],
   "author": "",
