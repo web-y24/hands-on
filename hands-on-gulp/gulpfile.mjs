@@ -1,4 +1,4 @@
-import { src, dest, series } from "gulp";
+import { src, dest, series, watch } from "gulp";
 import { deleteAsync } from "del";
 
 import gulpSass from "gulp-sass";
@@ -27,6 +27,9 @@ import { dirname } from "path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import terser from "gulp-terser";
+
+import browserSyncLib from "browser-sync";
+const browserSync = browserSyncLib.create();
 
 const isProd = process.env.NODE_ENV === "production";
 const isDev = !isProd;
@@ -129,5 +132,22 @@ export const styles = isProd ? stylesProd : stylesDev;
 export const scripts = isProd ? scriptsProd : scriptsDev;
 
 export function noop(done){ done(); }
+
+function reload(done) {
+  browserSync.reload();
+  done();
+}
+
+export function serve() {
+  browserSync.init({
+    server: { baseDir: "dist/" },
+    notify: false,
+    open: false,
+  });
+  watch("src/scss/**/*.scss", series(styles, reload));
+  watch(["src/html/**/*.html"], series(html, reload));
+  watch("src/scripts/**/*.js", series(scripts, reload));
+  watch("src/images/**/*", series(imagesOptimize, webpImages, reload));
+}
 
 export default series(noop);
