@@ -1,4 +1,6 @@
 import { src, dest, series } from "gulp";
+import { deleteAsync } from "del";
+
 import gulpSass from "gulp-sass";
 import * as dartSass from "sass";
 
@@ -28,6 +30,10 @@ import terser from "gulp-terser";
 
 const isProd = process.env.NODE_ENV === "production";
 const isDev = !isProd;
+
+export function clean() {
+  return deleteAsync(["dist/**", "!dist"]);
+}
 
 export function htmlDev() {
   return src(["src/html/**/*.html", "!src/html/components/**"])
