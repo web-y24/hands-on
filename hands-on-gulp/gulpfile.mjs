@@ -9,6 +9,9 @@ import cleanCSS from "gulp-clean-css";
 import posthtml from "gulp-posthtml";
 import include from "posthtml-include";
 import htmlmin from "gulp-htmlmin";
+
+import newer from "gulp-newer";
+
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -60,6 +63,12 @@ export function scriptsProd() {
   return src("src/scripts/**/*.js")
     .pipe(terser().on("error",(err)=>{ console.error("terser:", err.message); }))
     .pipe(dest("dist/js"));
+}
+
+export function imagesCopy() {
+  return src("src/images/**/*.{jpg,jpeg,png,svg}",{encoding: false})
+    .pipe(newer("dist/images"))
+    .pipe(dest("dist/images"));
 }
 
 export const html = isProd ? htmlProd : htmlDev;

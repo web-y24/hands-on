@@ -15,6 +15,7 @@
     "gulp-autoprefixer": "^10.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-htmlmin": "^5.0.1",
+    "gulp-newer": "^1.4.0",
     "gulp-posthtml": "^3.0.5",
     "gulp-sass": "^6.0.1",
     "gulp-sourcemaps": "^3.0.0",
