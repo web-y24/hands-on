@@ -1,6 +1,6 @@
 // main.js
-(function () {
-  "use strict";
+(() => {
+
 
   // 開発時のデバッグ用（本番ビルドで terser が削除）
   const DEBUG = true;
