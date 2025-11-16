@@ -10,7 +10,9 @@
     "lint": "biome lint ./src",
     "format": "biome format ./src",
     "check": "biome check ./src",
-    "lint:fix": "biome lint --write ./src"
+    "lint:fix": "biome lint --write ./src",
+    "format:fix": "biome format --write ./src",
+    "check:fix": "biome check --write ./src"
   },
   "keywords": [],
   "author": "",
